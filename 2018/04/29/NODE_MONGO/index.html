@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,mongoose,mongodb,js," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="w_y blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="目录: 12345678910111213141516171819202122232425262728293031321. MongoDB介绍2. MongoDB本地安装3. MongoDB本地操作	3.1 库操作	3.2 表操作4. node-mongodb安装5. node-mongodb连接6. node-mongodb语法和执行	- 插入	- 查询	- 修改	- 删除	- 存储过程7. n">
+<meta name="keywords" content="node.js,mongoose,mongodb,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node-mongodb上手指南">
+<meta property="og:url" content="http://yoursite.com/2018/04/29/NODE_MONGO/index.html">
+<meta property="og:site_name" content="w_y blog">
+<meta property="og:description" content="目录: 12345678910111213141516171819202122232425262728293031321. MongoDB介绍2. MongoDB本地安装3. MongoDB本地操作	3.1 库操作	3.2 表操作4. node-mongodb安装5. node-mongodb连接6. node-mongodb语法和执行	- 插入	- 查询	- 修改	- 删除	- 存储过程7. n">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-19T09:20:10.816Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node-mongodb上手指南">
+<meta name="twitter:description" content="目录: 12345678910111213141516171819202122232425262728293031321. MongoDB介绍2. MongoDB本地安装3. MongoDB本地操作	3.1 库操作	3.2 表操作4. node-mongodb安装5. node-mongodb连接6. node-mongodb语法和执行	- 插入	- 查询	- 修改	- 删除	- 存储过程7. n">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/29/NODE_MONGO/"/>
+
+
+
+
+
+  <title>node-mongodb上手指南 | w_y blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/weiyuan0609"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">w_y blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">There's always one for you</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/NODE_MONGO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="w_y blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">node-mongodb上手指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T19:03:06+08:00">
+                2018-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,805 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>目录:</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>MongoDB介绍</span><br><span class="line"><span class="bullet">2. </span>MongoDB本地安装</span><br><span class="line"><span class="bullet">3. </span>MongoDB本地操作</span><br><span class="line"><span class="code">	3.1 库操作</span></span><br><span class="line"><span class="code">	3.2 表操作</span></span><br><span class="line"><span class="bullet">4. </span>node-mongodb安装</span><br><span class="line"><span class="bullet">5. </span>node-mongodb连接</span><br><span class="line"><span class="bullet">6. </span>node-mongodb语法和执行</span><br><span class="line"><span class="code">	- 插入</span></span><br><span class="line"><span class="code">	- 查询</span></span><br><span class="line"><span class="code">	- 修改</span></span><br><span class="line"><span class="code">	- 删除</span></span><br><span class="line"><span class="code">	- 存储过程</span></span><br><span class="line"><span class="bullet">7. </span>node-mongoose介绍和使用</span><br><span class="line"><span class="code">	7.1 mongoose名词介绍</span></span><br><span class="line"><span class="code">	7.3 node-mongoose安装</span></span><br><span class="line"><span class="code">	7.4 node-mongoose语法和执行</span></span><br><span class="line"><span class="code">	7.4.1 Schema,Modal创建</span></span><br><span class="line"><span class="code">		- 索引和默认值</span></span><br><span class="line"><span class="code">		- 验证器</span></span><br><span class="line"><span class="code">	7.4.2 数据库操作</span></span><br><span class="line"><span class="code">		- 插入</span></span><br><span class="line"><span class="code">		- 删除</span></span><br><span class="line"><span class="code">		- 修改</span></span><br><span class="line"><span class="code">		- 修改器和更新器</span></span><br><span class="line"><span class="code">		- 查询</span></span><br><span class="line"><span class="code">		- 条件查询</span></span><br><span class="line"><span class="code">		- 数量查询</span></span><br><span class="line"><span class="code">		- 根据id查询</span></span><br><span class="line"><span class="code">		- 分页查询</span></span><br><span class="line"><span class="code">		- aggregate</span></span><br><span class="line"><span class="bullet">8. </span>其他</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="1-mongodb介绍"><a href="#1-mongodb介绍" class="headerlink" title="1.mongodb介绍"></a>1.mongodb介绍</h3><p>　　开源，高性能的NoSQL数据库；支持索引、集群、复制和故障转移、各种语言的驱动程序；高伸缩性；</p>
+<h3 id="2-mongodb本地安装"><a href="#2-mongodb本地安装" class="headerlink" title="2. mongodb本地安装"></a>2. mongodb本地安装</h3><p>官方安装说明： <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/" target="_blank" rel="noopener">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/</a></p>
+<p>安装成功后启动：<br>我本地是：mongod –dbpath “f:\data\db”</p>
+<p>MongoDB默认端口是27017;</p>
+<h3 id="3-mongodb本地操作"><a href="#3-mongodb本地操作" class="headerlink" title="3. mongodb本地操作"></a>3. mongodb本地操作</h3><p>成功启动MongoDB后，再打开一个命令行窗口输入mongo，就可以进行数据库的一些操作</p>
+<h4 id="a-库操作"><a href="#a-库操作" class="headerlink" title="a. 库操作"></a>a. 库操作</h4><p>新建数据库：第一步：use 新建数据库名；第二步：进行此库相关的操作；如果不进行第二步，该数据库不会被创建</p>
+<ul>
+<li>查看数据库：show dbs;</li>
+<li>新建表：db.createCollection(‘要新建的表名’);</li>
+<li>查看当前数据库下表： show collections;</li>
+<li>删除当前数据库指定表：db.表名.drop();</li>
+<li>删除当前数据库：db.dropDatabase();</li>
+</ul>
+<p>提示：</p>
+<ol>
+<li>默认为存在“admin”和“local”两个数据库；admin数据库是存放管理员信息的数据库，认证会用到；local是存放replication相关的数据；这两处本篇都没有涉及到；</li>
+<li>find();是个查询操作，后面会讲到，上面用到主要是为了演示use不存在的库后，进行相关操作会创建出这个库；</li>
+<li>MongoDB没有像MySQL或MSSQL等数据库这么严格的规定，不是非得要先建库、建表、建各种字段，以后的操作中慢慢的会体会到^_^！</li>
+</ol>
+<h4 id="b-表操作"><a href="#b-表操作" class="headerlink" title="b. 表操作"></a>b. 表操作</h4><p><strong>1. 插入</strong><br>方法一：db.表名.insert(数据);　　</p>
+<ol>
+<li>没有去创建新表，其实通过插入操作也会自动创建</li>
+<li>_id，是mongodb自已生成的，每行数据都会存在，默认是ObjectId，可以在插入数据时插入这个键的值(支持mongodb支持的所有数据类型)</li>
+</ol>
+<p>方法二：db.表名.save(数据);</p>
+<ol>
+<li>save也可达到insert一样的插入效果</li>
+<li>_id可以自已插入</li>
+<li>一个表中不一定要字段都相同</li>
+</ol>
+<p>那它们有什么区别?　　<br>　　虽然insert和save方法都可以插入数据，当默认的“_id”值已存在时，调用insert方法插入会报错；而save方法不会,会更新相同的_id所在行数据的信息</p>
+<p><strong>2. 查询</strong></p>
+<ul>
+<li>查询表中所有数据：db.表名.find();</li>
+<li>按条件查询（支持多条件）：db.表名.find(条件);</li>
+<li>查询第一条（支持条件）：db.表名.findOne(条件);</li>
+<li>限制数量：db.表名.find().limit(数量);</li>
+<li>跳过指定数量：db.表名.find().skip(数量);</li>
+</ul>
+<p>查询不止这些，还有些高级查询，自行去了解一下^_^!</p>
+<p><strong>3. 修改</strong></p>
+<ul>
+<li>前面save在_id字段已存在是就是修改操作，按指定条件修改语法如下：</li>
+<li>db.表名.update({“条件字段名”:”字段值”},{$set:{“要修改的字段名”:”修改后的字段值”}});</li>
+</ul>
+<p><strong>4. 删除</strong></p>
+<ul>
+<li>db.表名.remove(条件);</li>
+</ul>
+<p><strong>5. 存储过程</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 创建存储过程：</span></span><br><span class="line">  db.system.js.save(&#123;<span class="attr">_id</span>:<span class="string">"存储过程ID"</span>,</span><br><span class="line">  value:<span class="function"><span class="keyword">function</span>(<span class="params">参数</span>)</span>&#123;</span><br><span class="line">          -- 逻辑主体;</span><br><span class="line">          <span class="keyword">return</span> 返回;</span><br><span class="line">  &#125;&#125;);</span><br><span class="line">  <span class="comment">// 调用存储过程</span></span><br><span class="line">db.eval(<span class="string">"存储过程ID()"</span>);</span><br></pre></td></tr></table></figure>
+<p>所有存储过程都存放在db.system.js中</p>
+<h3 id="4-node-mongodb安装"><a href="#4-node-mongodb安装" class="headerlink" title="4. node-mongodb安装"></a>4. node-mongodb安装</h3><ul>
+<li>npm install mongodb</li>
+</ul>
+<h3 id="5-node-mongodb连接"><a href="#5-node-mongodb连接" class="headerlink" title="5. node-mongodb连接"></a>5. node-mongodb连接</h3><ol>
+<li>创建连接对象，需要传入连接数据库的一些连接参数</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongodbClient = <span class="built_in">require</span>(<span class="string">'mongodb'</span>).MongoClient;</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'mongodb://locolhost:27017'</span>;</span><br><span class="line"><span class="keyword">const</span> dbName = <span class="string">'test'</span>; <span class="comment">// 数据库名称</span></span><br><span class="line"></span><br><span class="line">mongodbClient.connect(url, <span class="function"><span class="keyword">function</span>(<span class="params">err, client</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'连接成功!'</span>);</span><br><span class="line">  <span class="keyword">const</span> db = client.db(dbName);</span><br><span class="line">  <span class="keyword">const</span> collection = db.collection(<span class="string">'test'</span>); <span class="comment">// 连接到表</span></span><br><span class="line">  <span class="comment">// 执行mongo语句</span></span><br><span class="line">  ......        </span><br><span class="line">  client.close(); <span class="comment">// 关闭连接  </span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>关闭连接</li>
+</ol>
+<p>关闭一个连接使用close();</p>
+<h3 id="6-node-mongodb语法和执行"><a href="#6-node-mongodb语法和执行" class="headerlink" title="6. node-mongodb语法和执行"></a>6. node-mongodb语法和执行</h3><h4 id="a-插入"><a href="#a-插入" class="headerlink" title="a. 插入"></a>a. 插入</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> insertData = <span class="function"><span class="keyword">function</span>(<span class="params">collection, callback</span>) </span>&#123;   </span><br><span class="line">    <span class="comment">//插入数据</span></span><br><span class="line">    <span class="keyword">const</span> data = [&#123;<span class="string">"name"</span>:<span class="string">'zhangsan'</span>,<span class="string">"age"</span>:<span class="number">21</span>&#125;,&#123;<span class="string">"name"</span>:<span class="string">'lisi'</span>,<span class="string">"age"</span>:<span class="number">22</span>&#125;];</span><br><span class="line">    collection.insert(data, <span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>&#123; </span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'Error:'</span>+ err);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;     </span><br><span class="line">        callback(result);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  mongodbClient.connect(url, <span class="function"><span class="keyword">function</span>(<span class="params">err, client</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'连接成功!'</span>);</span><br><span class="line">    <span class="keyword">const</span> db = client.db(dbName);</span><br><span class="line">    <span class="keyword">const</span> collection = db.collection(<span class="string">'test'</span>);</span><br><span class="line">    insertData(collection, <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(result);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="b-查询"><a href="#b-查询" class="headerlink" title="b. 查询"></a>b. 查询</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> selectData = <span class="function"><span class="keyword">function</span>(<span class="params">collection, callback</span>) </span>&#123;  </span><br><span class="line">    <span class="comment">// 查询所有</span></span><br><span class="line">    <span class="keyword">let</span> whereStr = &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>&#125;;</span><br><span class="line">    collection.find(whereStr).toArray(<span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Error:'</span>+ err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;     </span><br><span class="line">      callback(result);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 条件查询 查询参数很多，自行查阅</span></span><br><span class="line">    collection.find(&#123;<span class="string">"age"</span>:&#123;<span class="attr">$gt</span>:<span class="number">30</span>&#125;&#125;).toArray(<span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(err)</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Error:'</span>+ err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;     </span><br><span class="line">      callback(result);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h4 id="c-修改"><a href="#c-修改" class="headerlink" title="c. 修改"></a>c. 修改</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> updateData = <span class="function"><span class="keyword">function</span>(<span class="params">collection, callback</span>) </span>&#123;  </span><br><span class="line">      <span class="keyword">const</span> whereStr = &#123;<span class="string">"name"</span>:<span class="string">'zhangsan'</span>&#125;;</span><br><span class="line">      <span class="keyword">const</span> updateStr = &#123;<span class="attr">$set</span>: &#123; <span class="string">"age"</span> : <span class="number">100</span> &#125;&#125;;</span><br><span class="line">      collection.update(whereStr, updateStr, <span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span>(err)&#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">'Error:'</span>+ err);</span><br><span class="line">              <span class="keyword">return</span>;</span><br><span class="line">          &#125;     </span><br><span class="line">          callback(result);</span><br><span class="line">      &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="d-删除"><a href="#d-删除" class="headerlink" title="d: 删除"></a>d: 删除</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> delData = <span class="function"><span class="keyword">function</span>(<span class="params">db, callback</span>) </span>&#123;  </span><br><span class="line">    <span class="comment">//连接到表  </span></span><br><span class="line">    <span class="keyword">var</span> collection = db.collection(<span class="string">'tb2'</span>);</span><br><span class="line">    <span class="comment">//删除数据</span></span><br><span class="line">    <span class="keyword">var</span> whereStr = &#123;<span class="string">"name"</span>:<span class="string">'wilson001'</span>&#125;;</span><br><span class="line">    collection.remove(whereStr, <span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(err)</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Error:'</span>+ err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;     </span><br><span class="line">      callback(result);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="e-存储过程"><a href="#e-存储过程" class="headerlink" title="e: 存储过程"></a>e: 存储过程</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> invokeProcData = <span class="function"><span class="keyword">function</span>(<span class="params">db, callback</span>) </span>&#123;  </span><br><span class="line">      db.eval(<span class="string">'get_tb2_count()'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, result</span>) </span>&#123; </span><br><span class="line">          <span class="keyword">if</span>(err)</span><br><span class="line">          &#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">'Error:'</span>+ err);</span><br><span class="line">              <span class="keyword">return</span>;</span><br><span class="line">          &#125;             </span><br><span class="line">          callback(result);</span><br><span class="line">      &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-mongoose介绍和使用"><a href="#7-mongoose介绍和使用" class="headerlink" title="7. mongoose介绍和使用"></a>7. mongoose介绍和使用</h3><p>一般我们不直接用MongoDB的函数来操作MongoDB数据库,针对它的进行再次封装的东西很多，且更利于编程实现，比如：mongoose、mongoskin、mongolian等等，应用性不错；<br>Mongoose就是一套操作MongoDB数据库的接口，且应用较多。</p>
+<h4 id="1-名词解释"><a href="#1-名词解释" class="headerlink" title="1. 名词解释"></a>1. 名词解释</h4><ul>
+<li><p>Schema：  一种以文件形式存储的数据库模型骨架，不具备数据库的操作能力</p>
+<ul>
+<li><p>Schema.Type：是由Mongoose内定的一些数据类型，基本数据类型都在其中，他也内置了一些Mongoose特有的Schema.Type。当然，你也可以自定义Schema.Type，只有满足Schema.Type的类型才能定义在Schema内。NodeJS中的基本数据类型都属于Schema.Type，另外Mongoose还定义了自己的类型</p>
+<pre><code>// 从官网截取过来的，举例：
+var ExampleSchema = new Schema({
+    name:String,
+    binary:Buffer,
+    living:Boolean,
+    updated:Date,
+    age:Number,
+    mixed:Schema.Types.Mixed, //该混合类型等同于nested
+    _id:Schema.Types.ObjectId,  //主键
+    _fk:Schema.Types.ObjectId,  //外键
+    array:[],
+    arrOfString:[String],
+    arrOfNumber:[Number],
+    arrOfDate:[Date],
+    arrOfBuffer:[Buffer],
+    arrOfBoolean:[Boolean],
+    arrOfMixed:[Schema.Types.Mixed],
+    arrOfObjectId:[Schema.Types.ObjectId]
+    nested:{
+        stuff:String,
+    }
+});
+</code></pre></li>
+</ul>
+</li>
+<li>Model：  由Schema发布生成的模型，具有抽象属性和行为的数据库操作对</li>
+<li>Entity：  由Model创建的实体，他的操作也会影响数据库</li>
+</ul>
+<p>Schema生成Model，Model创造Entity，Model和Entity都可对数据库操作造成影响，但Model比Entity更具操作性</p>
+<h4 id="2-node-mongoose安装"><a href="#2-node-mongoose安装" class="headerlink" title="2. node-mongoose安装"></a>2. node-mongoose安装</h4><p>npm install mongoose</p>
+<h4 id="3-连接mongoose"><a href="#3-连接mongoose" class="headerlink" title="3. 连接mongoose"></a>3. 连接mongoose</h4><p>创建一个文件db.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">'mongoose'</span>),</span><br><span class="line">      DB_URL = <span class="string">'mongodb://localhost:27017/test'</span>;</span><br><span class="line"><span class="comment">// 若有密码，则url：mongodb://username:password@host:port/database?options...'</span></span><br><span class="line"><span class="comment">// 连接</span></span><br><span class="line">mongoose.connect(DB_URL);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接成功</span></span><br><span class="line">mongoose.connection.on(<span class="string">'connected'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Mongoose connection open to '</span> + DB_URL);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接异常</span></span><br><span class="line">mongoose.connection.on(<span class="string">'error'</span>,<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Mongoose connection error: '</span> + err);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接断开</span></span><br><span class="line">mongoose.connection.on(<span class="string">'disconnected'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Mongoose connection disconnected'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = mongoose;</span><br></pre></td></tr></table></figure>
+<h4 id="4-mongoose使用"><a href="#4-mongoose使用" class="headerlink" title="4. mongoose使用"></a>4. mongoose使用</h4><p>举例，创建了一个用户登录信息表，对此数据进行增删改查</p>
+<ol>
+<li>创建文件user.js, 创建Schema，Model</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">'./db.js'</span>),</span><br><span class="line">        Schema = mongoose.Schema;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> UserSchema = <span class="keyword">new</span> Schema(&#123;</span><br><span class="line">    username : &#123; <span class="attr">type</span>: <span class="built_in">String</span>, <span class="attr">index</span>: <span class="literal">true</span> &#125;,                <span class="comment">//用户账号</span></span><br><span class="line">    userpwd: &#123; <span class="attr">type</span>: <span class="built_in">String</span>, <span class="attr">required</span>: <span class="literal">true</span> &#125;,               <span class="comment">//密码</span></span><br><span class="line">    userage: &#123;<span class="attr">type</span>: <span class="built_in">Number</span>, <span class="attr">min</span>: <span class="number">18</span>, max <span class="number">80</span> &#125;,               <span class="comment">//年龄</span></span><br><span class="line">    logindate : &#123; <span class="attr">type</span>: <span class="built_in">Date</span>, <span class="attr">default</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;,          <span class="comment">//最近登录时间</span></span><br><span class="line">    city:&#123; <span class="attr">type</span>:<span class="string">'String'</span>, <span class="attr">enum</span>:[<span class="string">'北京'</span>,<span class="string">'上海'</span>] &#125;,             <span class="comment">// 城市</span></span><br><span class="line">    other:&#123;</span><br><span class="line">        type:<span class="string">'String'</span>,</span><br><span class="line">        validate:[validator,err]  <span class="comment">//validator是一个验证函数，err是验证失败的错误信息</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">module</span>.exports = mongoose.model(<span class="string">'User'</span>,UserSchema);</span><br></pre></td></tr></table></figure>
+<p>上面有提到几个定义</p>
+<ul>
+<li>索引和默认值，即 index和default</li>
+<li>验证器，即<ul>
+<li>required 非空验证</li>
+<li>min/max 范围验证（边值验证）</li>
+<li>enum/match 枚举验证/匹配验证</li>
+<li>validate 自定义验证规则</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>进行数据库操作</li>
+</ol>
+<ul>
+<li>a. 插入</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">const</span> User = <span class="built_in">require</span>(<span class="string">"./user.js"</span>);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">insert</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> user = <span class="keyword">new</span> User(&#123;</span><br><span class="line">            username : <span class="string">'zhangsan'</span>,</span><br><span class="line">            userpwd: <span class="string">'abcd'</span>,</span><br><span class="line">            userage: <span class="number">37</span>,</span><br><span class="line">            logindate : <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        user.save(<span class="function"><span class="keyword">function</span> (<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"Error:"</span> + err);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"Res:"</span> + res);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">insert();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>b. 修改</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> User = <span class="built_in">require</span>(<span class="string">"./user.js"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">update</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> wherestr = &#123;<span class="string">'username'</span> : <span class="string">'zhangsan McGrady'</span>&#125;;</span><br><span class="line">    <span class="keyword">const</span> updatestr = &#123;<span class="string">'userpwd'</span>: <span class="string">'zzzz'</span>&#125;;</span><br><span class="line"></span><br><span class="line">    User.update(wherestr, updatestr, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"Error:"</span> + err);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"Res:"</span> + res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">update();</span><br></pre></td></tr></table></figure>
+<p>修改器和更新器:<br>为了更快进行更新的操作。在update中需要写很多选择器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">$inc增减修改器,只对数字有效.下面的实例: 找到 age=<span class="number">22</span>的文档,修改文档的age值自增<span class="number">1</span></span><br><span class="line">Model.update(&#123;‘age’:<span class="number">22</span>&#125;, &#123;‘$inc’:&#123;‘age’:<span class="number">1</span>&#125; &#125; );</span><br><span class="line">执行后: age=<span class="number">23</span></span><br><span class="line"></span><br><span class="line">$set指定一个键的值,这个键不存在就创建它.可以是任何MondoDB支持的类型</span><br><span class="line">Model.update(&#123;‘age’:<span class="number">22</span>&#125;, &#123;‘$set’:&#123;‘age’:’haha’&#125; &#125; );</span><br><span class="line">执行后: age=’haha’</span><br><span class="line"></span><br><span class="line">$unset同上取反,删除一个键</span><br><span class="line">Model.update(&#123;‘age’:<span class="number">22</span>&#125;, &#123;‘$unset’:&#123;‘age’:’haha’&#125; &#125; );</span><br><span class="line">执行后: age键不存在</span><br><span class="line"></span><br><span class="line">$push给一个键push一个数组成员,键不存在会创建</span><br><span class="line">Model.update(&#123;‘age’:<span class="number">22</span>&#125;, &#123;‘$push’:&#123;‘array’:<span class="number">10</span>&#125; &#125; );</span><br><span class="line">执行后: 增加一个 array 键,类型为数组, 有一个成员 <span class="number">10</span></span><br><span class="line"></span><br><span class="line">$addToSet向数组中添加一个元素,如果存在就不添加</span><br><span class="line">Model.update(&#123;‘age’:<span class="number">22</span>&#125;, &#123;‘$addToSet’:&#123;‘array’:<span class="number">10</span>&#125; &#125; );</span><br><span class="line">执行后: array中有<span class="number">10</span>所以不会添加</span><br><span class="line"></span><br><span class="line">$each遍历数组, 和 $push 修改器配合可以插入多个值</span><br><span class="line">Model.update(&#123;‘age’:<span class="number">22</span>&#125;, &#123;‘$push’:&#123;‘array’:&#123;‘$each’: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]&#125;&#125; &#125; );</span><br><span class="line">执行后: array : [<span class="number">10</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">$pop向数组中尾部删除一个元素</span><br><span class="line">Model.update(&#123;‘age’:<span class="number">22</span>&#125;, &#123;‘$pop’:&#123;‘array’:<span class="number">1</span>&#125; &#125; );</span><br><span class="line">执行后: array : [<span class="number">10</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] tips: 将<span class="number">1</span>改成<span class="number">-1</span>可以删除数组首部元素</span><br><span class="line"></span><br><span class="line">$pull向数组中删除指定元素</span><br><span class="line">Model.update(&#123;‘age’:<span class="number">22</span>&#125;, &#123;‘$pull’:&#123;‘array’:<span class="number">10</span>&#125; &#125; );</span><br><span class="line">执行后: array : [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] 匹配到array中的<span class="number">10</span>后将其删除</span><br></pre></td></tr></table></figure>
+<ul>
+<li>c. 删除</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">const</span> User = <span class="built_in">require</span>(<span class="string">"./user.js"</span>);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">del</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> wherestr = &#123;<span class="string">'username'</span> : <span class="string">'zhangsan'</span>&#125;;</span><br><span class="line"></span><br><span class="line">        User.remove(wherestr, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"Error:"</span> + err);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"Res:"</span> + res);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">del();</span><br></pre></td></tr></table></figure>
+<p>另外，删除和更新的其他方法，常用方法有：</p>
+<ul>
+<li>Model.findByIdAndUpdate(id, [update], [options], [callback]) // 找到指定id记录并更新</li>
+<li>Model.findOneAndUpdate([conditions], [update], [options], [callback]) // 找到一条记录并更新<br>* Model.findByIdAndRemove(id, [options], [callback]) // 找到指定id记录并删除</li>
+<li>Model.findOneAndRemove(conditions, [options], [callback]) // 找到一条记录并删除</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> User = <span class="built_in">require</span>(<span class="string">"./user.js"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findByIdAndUpdate</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> id = <span class="string">'56f2558b2dd74855a345edb2'</span>;</span><br><span class="line">    cibst updatestr = &#123;<span class="string">'userpwd'</span>: <span class="string">'abcd'</span>&#125;;</span><br><span class="line">    User.findByIdAndUpdate(id, updatestr, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"Error:"</span> + err);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"Res:"</span> + res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">findByIdAndUpdate();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>d. 查询</li>
+</ul>
+<p>查询有直接查询和链式查询，链式查询只有在执行exec方法时才执行查询，而且必须有回调</p>
+<ul>
+<li><p>条件查询<br>Model.find(conditions, [fields], [options], [callback])<br>//fields和options是可选参数， field的值中,1为包括，0为不包括，options： 选项参数<br>//fields: 参数用于字段映射，默认情况下，MongoDB会返回匹配文档的所有字段，使用映射(projection）设置希望返回的字段，用于取文档字段的子集，相当于SQL中SELECT后面我们需要的字段</p>
+<ul>
+<li>User.find({‘username’ : ‘zhangsn’}, {“username”: 1 ,”_id”: 0}, callback); // 输出只会有username字段，设置方法如上，1表示查询输出该字段，0表示不输出</li>
+<li><p>User.find({userage: {$gte: 21, $lte: 65}}, callback);  // 这表示查询年龄大于等21而且小于等于65岁</p>
+<p>   参数还有：</p>
+<pre><code>  　  $or　　　　或关系
+   　 $nor　　　 或关系取反
+  　　$gt　　　　大于
+  　　$gte　　　 大于等于
+  　　$lt　　　　 小于
+  　　$lte　　　  小于等于
+  　　$ne            不等于
+  　　$in             在多个值范围内
+  　　$nin           不在多个值范围内
+  　　$all            匹配数组中多个值
+  　　$regex　　正则，用于模糊查询
+  　　$size　　　匹配数组大小
+  　　$maxDistance　　范围查询，距离（基于LBS）
+  　　$mod　　   取模运算
+  　　$near　　　邻域查询，查询附近的位置（基于LBS）
+  　　$exists　　  字段是否存在
+  　　$elemMatch　　匹配内数组内的元素
+  　　$within　　范围查询（基于LBS）
+  　　$box　　　 范围查询，矩形范围（基于LBS）
+  　　$center       范围醒询，圆形范围（基于LBS）
+  　　$centerSphere　　范围查询，球形范围（基于LBS）
+  　　$slice　　　　查询字段集合中的元素（比如从第几个之后，第N到第M个元素
+</code></pre></li>
+<li>User.find({‘username’:{$regex:/m/i}}, [callback]) // 模糊查询,正则匹配有’m’的名字，且不区分大小写</li>
+</ul>
+</li>
+<li><p>数量查询<br>Model.count(conditions, [callback]) // res结果会输出数量，也可以传入条件做条件查询。</p>
+</li>
+<li><p>根据id查询<br>Model.findById(id, [fields], [options], [callback]) // 要据ID得到数据</p>
+</li>
+<li><p>分页查询</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> User = <span class="built_in">require</span>(<span class="string">"./user.js"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getByPager</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> pageSize = <span class="number">5</span>;                   <span class="comment">//一页多少条</span></span><br><span class="line">    <span class="keyword">const</span> currentPage = <span class="number">1</span>;                <span class="comment">//当前第几页</span></span><br><span class="line">    <span class="keyword">const</span> sort = &#123;<span class="string">'logindate'</span>:<span class="number">-1</span>&#125;;        <span class="comment">//排序（按登录时间倒序）</span></span><br><span class="line">    <span class="keyword">const</span> condition = &#123;&#125;;                 <span class="comment">//条件</span></span><br><span class="line">    <span class="keyword">const</span> skipnum = (currentPage - <span class="number">1</span>) * pageSize;   <span class="comment">//跳过数</span></span><br><span class="line"> </span><br><span class="line">    User.find(condition).skip(skipnum).limit(pageSize).sort(sort).exec(<span class="function"><span class="keyword">function</span> (<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"Error:"</span> + err);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"Res:"</span> + res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">getByPager();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>e. aggregate<br>在MongoDB中，聚合(aggregate)主要用于进行处理数据，比如统计求和，求平均数等，并返回计算后的数据结果，这给我们带来了很多便捷之处，因为可以在读取数据的同时进行数据处理<br>例如：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// $match用于获取年龄大于20小于或等于40记录，然后将符合条件的记录送到下一阶段$group管道操作符进行处理。</span></span><br><span class="line">User.aggregate([</span><br><span class="line">                &#123; <span class="attr">$match</span> : &#123; <span class="attr">userage</span> : &#123; <span class="attr">$gt</span> : <span class="number">20</span>, <span class="attr">$lte</span> : <span class="number">40</span> &#125; &#125; &#125;,</span><br><span class="line">                &#123; <span class="attr">$group</span>: &#123; <span class="attr">_id</span>: <span class="literal">null</span>, <span class="attr">count</span>: &#123; <span class="attr">$sum</span>: <span class="number">1</span> &#125; &#125; &#125;</span><br><span class="line">            ]);</span><br></pre></td></tr></table></figure>
+<p>下面列举一些：</p>
+<ul>
+<li>$project：修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。</li>
+<li>$match：用于过滤数据，只输出符合条件的文档。$match使用MongoDB的标准查询操作。</li>
+<li>$limit：用来限制MongoDB聚合管道返回的文档数。</li>
+<li>$skip：在聚合管道中跳过指定数量的文档，并返回余下的文档。</li>
+<li>$unwind：将文档中的某一个数组类型字段拆分成多条，每条包含数组中的一个值。</li>
+<li>$group：将集合中的文档分组，可用于统计结果。</li>
+<li>$sort：将输入文档排序后输出。</li>
+<li>$geoNear：输出接近某一地理位置的有序文档。</li>
+</ul>
+<p>更多参数可以参考下方参考链接。</p>
+<h3 id="8-其他"><a href="#8-其他" class="headerlink" title="8. 其他"></a>8. 其他</h3><p>注意：</p>
+<ul>
+<li>表”应该描述为“collection(集合)”；“行”应该描述为“文档（document）”,一个database中可以有多个collection，一个collection中又可以有多个document</li>
+<li>用CMD中使用mongo.exe操作时，插入中文遇一了问题，原因是MongoDB默认编辑是utf-8，而CMD是GBK，所以在CMD窗口中执行这个命令修改编辑即可：chcp 65001</li>
+<li>注意mongodb严格区分大小写，比如查询 db.tb2.find({“name”:”wilson0”})和 db.tb2.find({“Name”:”wilson0”}) 并不是用的同一字段做的条件；</li>
+</ul>
+<p>参考：<br>mongodb: <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/addFields/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/reference/operator/aggregation/addFields/</a><br>mongodb查询参数： <a href="https://mongodb-documentation.readthedocs.io/en/latest/reference/operator/gt.html" target="_blank" rel="noopener">https://mongodb-documentation.readthedocs.io/en/latest/reference/operator/gt.html</a><br>mongoose: <a href="http://mongoosejs.com/docs/api.html#Aggregate" target="_blank" rel="noopener">http://mongoosejs.com/docs/api.html#Aggregate</a><br>blog:<br><a href="http://www.cnblogs.com/zhongweiv/p/node_mongodb.html" target="_blank" rel="noopener">http://www.cnblogs.com/zhongweiv/p/node_mongodb.html</a><br><a href="https://cnodejs.org/topic/504b4924e2b84515770103dd" target="_blank" rel="noopener">https://cnodejs.org/topic/504b4924e2b84515770103dd</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"><i class="fa fa-tag"></i> node.js</a>
+          
+            <a href="/tags/mongoose/" rel="tag"><i class="fa fa-tag"></i> mongoose</a>
+          
+            <a href="/tags/mongodb/" rel="tag"><i class="fa fa-tag"></i> mongodb</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/22/十商/" rel="next" title="十商">
+                <i class="fa fa-chevron-left"></i> 十商
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/centos-7/" rel="prev" title="Centos7 常用命令">
+                Centos7 常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me.jpg"
+                alt="Leo Wei" />
+            
+              <p class="site-author-name" itemprop="name">Leo Wei</p>
+              <p class="site-description motion-element" itemprop="description">study and life</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/weiyuan0609" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:weiyuan930609@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/er-ge-93-76/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://leetcode.com/weiyuan0609" target="_blank" title="LeetCode">
+                      
+                        <i class="fa fa-fw fa-meh-o"></i>LeetCode</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-gavel"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com" title="张鑫旭" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com" title="阮一峰" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaoxuefeng.com" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jspang.com" title="技术胖" target="_blank">技术胖</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.mozilla.org/en-US/" title="MDN" target="_blank">MDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com" title="ES6" target="_blank">ES6</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://webglfundamentals.org/webgl/lessons/zh_cn/" title="WEBGL" target="_blank">WEBGL</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nodejs.org/dist/latest-v10.x/docs/api/" title="NODEJS" target="_blank">NODEJS</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.imooc.com" title="慕课网" target="_blank">慕课网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://frontendmasters.com/books/front-end-handbook/2019/" title="2019前端发展" target="_blank">2019前端发展</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=485232943&auto=0&height=66"></iframe>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-mongodb介绍"><span class="nav-number">1.</span> <span class="nav-text">1.mongodb介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-mongodb本地安装"><span class="nav-number">2.</span> <span class="nav-text">2. mongodb本地安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-mongodb本地操作"><span class="nav-number">3.</span> <span class="nav-text">3. mongodb本地操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-库操作"><span class="nav-number">3.1.</span> <span class="nav-text">a. 库操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-表操作"><span class="nav-number">3.2.</span> <span class="nav-text">b. 表操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-node-mongodb安装"><span class="nav-number">4.</span> <span class="nav-text">4. node-mongodb安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-node-mongodb连接"><span class="nav-number">5.</span> <span class="nav-text">5. node-mongodb连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-node-mongodb语法和执行"><span class="nav-number">6.</span> <span class="nav-text">6. node-mongodb语法和执行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-插入"><span class="nav-number">6.1.</span> <span class="nav-text">a. 插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-查询"><span class="nav-number">6.2.</span> <span class="nav-text">b. 查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-修改"><span class="nav-number">6.3.</span> <span class="nav-text">c. 修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d-删除"><span class="nav-number">6.4.</span> <span class="nav-text">d: 删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#e-存储过程"><span class="nav-number">6.5.</span> <span class="nav-text">e: 存储过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-mongoose介绍和使用"><span class="nav-number">7.</span> <span class="nav-text">7. mongoose介绍和使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-名词解释"><span class="nav-number">7.1.</span> <span class="nav-text">1. 名词解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-node-mongoose安装"><span class="nav-number">7.2.</span> <span class="nav-text">2. node-mongoose安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-连接mongoose"><span class="nav-number">7.3.</span> <span class="nav-text">3. 连接mongoose</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-mongoose使用"><span class="nav-number">7.4.</span> <span class="nav-text">4. mongoose使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-其他"><span class="nav-number">8.</span> <span class="nav-text">8. 其他</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Wei</span>
+
+  
+</div>
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

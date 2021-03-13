@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web安全," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="w_y blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一、常见的安全事件1. 钓鱼 Phishing 往往使用诱惑性的标题，比如：账号出问题了，中奖了 仿冒真实知名站点 为了骗取用户账号和资料，如：银行卡，身份证，住址…  2. 网页篡改 Tampering这种技术，主要是黑客入侵后，对网页进行更改，主要是为了炫耀技术，有时是为了政治行为。 下面介绍下搜索引擎的小技巧">
+<meta name="keywords" content="web安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web安全基础知识">
+<meta property="og:url" content="http://yoursite.com/2017/11/19/web安全基础知识/index.html">
+<meta property="og:site_name" content="w_y blog">
+<meta property="og:description" content="一、常见的安全事件1. 钓鱼 Phishing 往往使用诱惑性的标题，比如：账号出问题了，中奖了 仿冒真实知名站点 为了骗取用户账号和资料，如：银行卡，身份证，住址…  2. 网页篡改 Tampering这种技术，主要是黑客入侵后，对网页进行更改，主要是为了炫耀技术，有时是为了政治行为。 下面介绍下搜索引擎的小技巧">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-19T13:08:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web安全基础知识">
+<meta name="twitter:description" content="一、常见的安全事件1. 钓鱼 Phishing 往往使用诱惑性的标题，比如：账号出问题了，中奖了 仿冒真实知名站点 为了骗取用户账号和资料，如：银行卡，身份证，住址…  2. 网页篡改 Tampering这种技术，主要是黑客入侵后，对网页进行更改，主要是为了炫耀技术，有时是为了政治行为。 下面介绍下搜索引擎的小技巧">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/19/web安全基础知识/"/>
+
+
+
+
+
+  <title>web安全基础知识 | w_y blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/weiyuan0609"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">w_y blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">There's always one for you</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/19/web安全基础知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="w_y blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">web安全基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-19T23:04:20+08:00">
+                2017-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,613 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、常见的安全事件"><a href="#一、常见的安全事件" class="headerlink" title="一、常见的安全事件"></a><a href="#一、常见的安全事件" title="一、常见的安全事件"></a>一、常见的安全事件</h1><h2 id="1-钓鱼-Phishing"><a href="#1-钓鱼-Phishing" class="headerlink" title="1. 钓鱼 Phishing"></a><a href="#1-钓鱼-Phishing" title="1\. 钓鱼 Phishing"></a>1. 钓鱼 Phishing</h2><ul>
+<li>往往使用诱惑性的标题，比如：账号出问题了，中奖了</li>
+<li>仿冒真实知名站点</li>
+<li>为了骗取用户账号和资料，如：银行卡，身份证，住址…</li>
+</ul>
+<h2 id="2-网页篡改-Tampering"><a href="#2-网页篡改-Tampering" class="headerlink" title="2. 网页篡改 Tampering"></a><a href="#2-网页篡改-Tampering" title="2\. 网页篡改 Tampering"></a>2. 网页篡改 Tampering</h2><p>这种技术，主要是黑客入侵后，对网页进行更改，主要是为了炫耀技术，有时是为了政治行为。</p>
+<p>下面介绍下搜索引擎的小技巧<br><a id="more"></a></p>
+<ol>
+<li>关键字<pre><code>*   Hacked by
+</code></pre></li>
+<li><p>搜索引擎语法</p>
+<pre><code>*   Intitle:keyword 标题中含有关键词的网页
+</code></pre><ul>
+<li>Intext:keyword 正文中含有关键词的网页</li>
+<li>Site:domain 在某个域名和子域名下的网页</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-暗链-Hidden-hyperlinks"><a href="#3-暗链-Hidden-hyperlinks" class="headerlink" title="3. 暗链 Hidden hyperlinks"></a><a href="#3-暗链-Hidden-hyperlinks" title="3\. 暗链 Hidden hyperlinks"></a>3. 暗链 Hidden hyperlinks</h2><p>一种看不见的链接，黑客入侵后，把链接信息植入代码。</p>
+<blockquote>
+<p>据不完全统计，中文互联网网站安全隐患严重，73%的网站被黑的类型为植入暗链，12%植入网马，15%是网页篡改。 因为这个暗链，产业法律风险小，黑客收入比较高，已经成为非常成熟的产业。</p>
+</blockquote>
+<p>小结：</p>
+<ul>
+<li>隐藏在网站当中链接，不能为正常用户点击，也就是为了爬虫引擎准备的，提高网站排名</li>
+<li>主要是 网游/医疗/博彩/色情</li>
+</ul>
+<h2 id="4-Webshell"><a href="#4-Webshell" class="headerlink" title="4. Webshell"></a><a href="#4-Webshell" title="4\. Webshell"></a>4. Webshell</h2><ul>
+<li>网页  一种web后门，一个可执行环境</li>
+<li>功能强大，一旦植入，可以执行大部分的命令操作，获取服务器的各种权限</li>
+<li>存在的形式有很多， 像 asP/php/jsp</li>
+<li>通常他会以文件和正常网页混在一起的形式存在，通过浏览器来访问这个后门，已达到控制目标服务器的目的，控制流量又是像正常访问网站的流量混在一起，所以一般的入侵检测系统很难发现</li>
+</ul>
+<h1 id="二、-WEB安全"><a href="#二、-WEB安全" class="headerlink" title="二、 WEB安全"></a><a href="#二、-WEB安全" title="二、 WEB安全"></a>二、 WEB安全</h1><p>主要分成2类：</p>
+<p>客户端：XSS CSRF 点击劫持 URL跳转</p>
+<p>服务端：SQL注入 命令注入</p>
+<h2 id="1-XSS"><a href="#1-XSS" class="headerlink" title="1. XSS"></a><a href="#1-XSS" title="1\. XSS"></a>1. XSS</h2><p>（Cross Site Script） 跨站脚本</p>
+<p>危害： 盗取用户信息，钓鱼，制造蠕虫。。等</p>
+<p>概念： 黑客通过HTML注入篡改网页，插入了恶意脚本，当用户在浏览网页时，实现控制用户浏览器行为的一种攻击方式。</p>
+<p>分类：存储型，反射型，DOM型</p>
+<ul>
+<li>存储型</li>
+</ul>
+<p>访问网站，触发XSS</p>
+<p>关键点： 是XSS脚本内容是存储在数据库中</p>
+<ul>
+<li>反射型</li>
+</ul>
+<p>访问携带XSS脚本的链接触发XSS</p>
+<p>关键点： 直接从url中提取xss脚本内容</p>
+<ul>
+<li>DOM型</li>
+</ul>
+<p>访问携带XSS脚本的链接触发XSS</p>
+<p>关键点： 通过js从url获取脚本内容，并使用例如innerHTML方法，将xss写入DOM中，触发XSS</p>
+<blockquote>
+<p>区别：DOM型XSS是通过前端js,将xss脚本写入DOM中触发，而反射型XSS是通过后端WEB应用程序将XSS脚本执行到响应页面中，浏览器渲染响应页面时，才触发XSS</p>
+</blockquote>
+<h2 id="2-CSRF"><a href="#2-CSRF" class="headerlink" title="2. CSRF"></a><a href="#2-CSRF" title="2\. CSRF"></a>2. CSRF</h2><p>（Cross-site request forgery） 跨站请求伪造</p>
+<p>危害： 执行恶意操作（被转账，被发垃圾评论），制造蠕虫。。。等</p>
+<p>概念： 利用用户已登录的身份，在用户毫不知情的情况下，以用户的名义完成非法操作</p>
+<p>原理principle： 通常Cookie当中会存放用户凭证信息，浏览器在发送请求时，会自动带上已有的cookie,通过cookie识别用户身份，执行转账操作。</p>
+<p>例如，黑客构造转账服务的攻击代码，假如用户已经登陆，只要访问这个页面，就会自动将钱转到另一个用户。</p>
+<h2 id="3-点击劫持"><a href="#3-点击劫持" class="headerlink" title="3. 点击劫持"></a><a href="#3-点击劫持" title="3\. 点击劫持"></a>3. 点击劫持</h2><p>通过覆盖不可见的框架误导受害者点击而造成的攻击行为。</p>
+<p>特点： 隐蔽性比较高，骗取用户操作，UI-覆盖攻击， 利用iframe或者其他标签的属性（如：display:none）</p>
+<blockquote>
+<p>iframe: 是可以创建另一个包含另一个文档的内联框架</p>
+</blockquote>
+<h2 id="4-URL跳转"><a href="#4-URL跳转" class="headerlink" title="4. URL跳转"></a><a href="#4-URL跳转" title="4\. URL跳转"></a>4. URL跳转</h2><p>定义： 借助为验证的url跳转，将应用程序引导到不安全的第三方区域，从而导致的安全问题。例如：在互联网中，恶意的网站通常会设计成目标网站会经常访问的样子，这样才更具诱惑性。</p>
+<p>实现方式： Header头跳转，js跳转，META标签跳转</p>
+<h2 id="5-SQL注入"><a href="#5-SQL注入" class="headerlink" title="5. SQL注入"></a><a href="#5-SQL注入" title="5\. SQL注入"></a>5. SQL注入</h2><p>首先举个万能密码的例子：我们登陆网站要输入账号密码，错误将登陆失败，然后，我们在账号输入admin’ –,密码不输入，结果登陆成功。</p>
+<p>定义： SQL Injection,是一种常见的WEB安全漏洞，攻击者利用这个漏洞，可以访问或修改数据，或者利用潜在的数据库漏洞进行攻击。</p>
+<p>解释： 登陆发送一个POST请求，提交参数是账号和密码，然后后台执行SQL时，利用代码 ‘ –, 闭合注释，达到登陆成功。</p>
+<ul>
+<li><ol>
+<li>获取用户请求参数</li>
+</ol>
+</li>
+<li><ol>
+<li>拼接到代码当中</li>
+</ol>
+</li>
+<li><ol>
+<li>SQL语句按照我们构造参数的语义执行成功</li>
+</ol>
+</li>
+</ul>
+<p>本质就是 数据与代码未分离，即数据当做了代码来执行</p>
+<p>危害： 获取数据库信息，获取服务器权限，植入webshell，获取服务器后门，读取服务器敏感文件，万能密码。。。</p>
+<h2 id="6-命令注入-Command-Injection"><a href="#6-命令注入-Command-Injection" class="headerlink" title="6. 命令注入 Command Injection"></a><a href="#6-命令注入-Command-Injection" title="6\. 命令注入 Command Injection"></a>6. 命令注入 Command Injection</h2><blockquote>
+<p>windows: DOS命令， linux: Bash命令</p>
+<p>命令拼接&amp;,依次执行拼接的命令，echo hello &amp; echo world</p>
+<p>管道符|，前面命令的输出作为后面命令的输入， ipconfig | find “IPv4”</p>
+</blockquote>
+<p>例如： PHP可执行命令的函数：system,exec, eval,shell_exec，。。。。。</p>
+<p>过程： 黑客构造命令提交给web应用程序，程序提取被构造的命令，拼接到被执行的命令中，导致web应用程序执行了额外的命令，将执行结果显示到响应页面中。</p>
+<h2 id="7-文件操作漏洞-file-operation"><a href="#7-文件操作漏洞-file-operation" class="headerlink" title="7. 文件操作漏洞 file operation"></a><a href="#7-文件操作漏洞-file-operation" title="7\. 文件操作漏洞 file operation"></a>7. 文件操作漏洞 file operation</h2><ul>
+<li><p>文件上传： 上传webshell, 上传木马</p>
+<p>文件上传不当：例如可以上传可执行脚本，脚本拥有执行权限</p>
+</li>
+<li><p>文件下载： 下载系统任意文件，下载程序代码</p>
+<p>会导致代码泄露，数据库配置文件泄露，系统文件泄露。。。</p>
+<p>文件处理不当导致：未验证下载文件格式，为限制请求的路径</p>
+</li>
+<li><p>文件包含</p>
+<p>解决代码量，重复代码写入一个文件</p>
+<p>本地文件包含，远程文件包含</p>
+<p>下面是一些php中常见的文件包含函数：include()、require()、include_once()、require_once()….</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web安全/" rel="tag"><i class="fa fa-tag"></i> web安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/12/移动web基础知识/" rel="next" title="移动web基础知识">
+                <i class="fa fa-chevron-left"></i> 移动web基础知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/22/echarts-highchart-d3-学习/" rel="prev" title="echarts highchart & d3 学习">
+                echarts highchart & d3 学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me.jpg"
+                alt="Leo Wei" />
+            
+              <p class="site-author-name" itemprop="name">Leo Wei</p>
+              <p class="site-description motion-element" itemprop="description">study and life</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/weiyuan0609" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:weiyuan930609@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/er-ge-93-76/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://leetcode.com/weiyuan0609" target="_blank" title="LeetCode">
+                      
+                        <i class="fa fa-fw fa-meh-o"></i>LeetCode</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-gavel"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com" title="张鑫旭" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com" title="阮一峰" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaoxuefeng.com" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jspang.com" title="技术胖" target="_blank">技术胖</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.mozilla.org/en-US/" title="MDN" target="_blank">MDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com" title="ES6" target="_blank">ES6</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://webglfundamentals.org/webgl/lessons/zh_cn/" title="WEBGL" target="_blank">WEBGL</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nodejs.org/dist/latest-v10.x/docs/api/" title="NODEJS" target="_blank">NODEJS</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.imooc.com" title="慕课网" target="_blank">慕课网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://frontendmasters.com/books/front-end-handbook/2019/" title="2019前端发展" target="_blank">2019前端发展</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=485232943&auto=0&height=66"></iframe>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、常见的安全事件"><span class="nav-number">1.</span> <span class="nav-text">一、常见的安全事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-钓鱼-Phishing"><span class="nav-number">1.1.</span> <span class="nav-text">1. 钓鱼 Phishing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-网页篡改-Tampering"><span class="nav-number">1.2.</span> <span class="nav-text">2. 网页篡改 Tampering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-暗链-Hidden-hyperlinks"><span class="nav-number">1.3.</span> <span class="nav-text">3. 暗链 Hidden hyperlinks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Webshell"><span class="nav-number">1.4.</span> <span class="nav-text">4. Webshell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、-WEB安全"><span class="nav-number">2.</span> <span class="nav-text">二、 WEB安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-XSS"><span class="nav-number">2.1.</span> <span class="nav-text">1. XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-CSRF"><span class="nav-number">2.2.</span> <span class="nav-text">2. CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-点击劫持"><span class="nav-number">2.3.</span> <span class="nav-text">3. 点击劫持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-URL跳转"><span class="nav-number">2.4.</span> <span class="nav-text">4. URL跳转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-SQL注入"><span class="nav-number">2.5.</span> <span class="nav-text">5. SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-命令注入-Command-Injection"><span class="nav-number">2.6.</span> <span class="nav-text">6. 命令注入 Command Injection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-文件操作漏洞-file-operation"><span class="nav-number">2.7.</span> <span class="nav-text">7. 文件操作漏洞 file operation</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Wei</span>
+
+  
+</div>
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

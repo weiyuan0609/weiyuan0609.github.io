@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,js,Linus,Centos," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="w_y blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="最近搭建 node 服务开始接触到云服务器，使用的是 CentOS 7 ，于是整理一下常用的命令。 这里约定的以 # 开头为一个命令，服务器操作时，去掉 # 。 常用命令:">
+<meta name="keywords" content="node.js,js,Linus,Centos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7 常用命令">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/centos-7/index.html">
+<meta property="og:site_name" content="w_y blog">
+<meta property="og:description" content="最近搭建 node 服务开始接触到云服务器，使用的是 CentOS 7 ，于是整理一下常用的命令。 这里约定的以 # 开头为一个命令，服务器操作时，去掉 # 。 常用命令:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-19T09:04:00.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos7 常用命令">
+<meta name="twitter:description" content="最近搭建 node 服务开始接触到云服务器，使用的是 CentOS 7 ，于是整理一下常用的命令。 这里约定的以 # 开头为一个命令，服务器操作时，去掉 # 。 常用命令:">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/centos-7/"/>
+
+
+
+
+
+  <title>Centos7 常用命令 | w_y blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/weiyuan0609"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">w_y blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">There's always one for you</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/centos-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="w_y blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Centos7 常用命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T20:13:10+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,515 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近搭建 node 服务开始接触到云服务器，使用的是 CentOS 7 ，于是整理一下常用的命令。</p>
+<p>这里约定的以 # 开头为一个命令，服务器操作时，去掉 # 。</p>
+<p>常用命令:<br><a id="more"></a></p>
+<p>文件和目录:</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># cd /home</td>
+<td>进入 ‘/home’ 目录</td>
+</tr>
+<tr>
+<td># cd ..</td>
+<td>返回上两级目录</td>
+</tr>
+<tr>
+<td># cd ../..</td>
+<td>返回上两级目录</td>
+</tr>
+<tr>
+<td># cd -</td>
+<td>返回上次所在目录</td>
+</tr>
+<tr>
+<td># cp file1 file2</td>
+<td>将file1复制为file2</td>
+</tr>
+<tr>
+<td># cp -a /tmp/dir1 .</td>
+<td>复制一个目录到当前工作目录（.代表当前目录）</td>
+</tr>
+<tr>
+<td># ls</td>
+<td>查看目录中的文件</td>
+</tr>
+<tr>
+<td># ls -a</td>
+<td>显示隐藏文件</td>
+</tr>
+<tr>
+<td># ls -l</td>
+<td>显示详细信息</td>
+</tr>
+<tr>
+<td># ls -lrt</td>
+<td>按时间显示文件（l表示详细列表，r表示反向排序，t表示按时间排序）</td>
+</tr>
+<tr>
+<td># pwd</td>
+<td>显示工作路径</td>
+</tr>
+<tr>
+<td># mkdir dir1</td>
+<td>创建 ‘dir1’ 目录</td>
+</tr>
+<tr>
+<td># mkdir dir1 dir2</td>
+<td>同时创建两个目录</td>
+</tr>
+<tr>
+<td># mkdir -p /tmp/dir1/dir2</td>
+<td>创建一个目录树</td>
+</tr>
+<tr>
+<td># rm -f file1</td>
+<td>删除 ‘file1’</td>
+</tr>
+<tr>
+<td># rm -rf dir1</td>
+<td>删除 ‘dir1’ 目录及其子目录内容</td>
+</tr>
+<tr>
+<td># touch test.txt</td>
+<td>在当前目录创建 test.txt 文件</td>
+</tr>
+<tr>
+<td># touch test1.txt test2.txt</td>
+<td>创建多个文件</td>
+</tr>
+<tr>
+<td># stat test.txt</td>
+<td>查看访问修改文件的时间</td>
+</tr>
+<tr>
+<td># touch -a test.txt</td>
+<td>修改访问时间</td>
+</tr>
+<tr>
+<td># touch -d ‘18-May-2017’ test.txt</td>
+<td>更改为自定义格式、自定义时间戳（更改访问时间、修改时间）</td>
+</tr>
+<tr>
+<td># touch -m test.txt</td>
+<td>更改修改时间</td>
+</tr>
+<tr>
+<td># touch -r test1.txt test2.txt</td>
+<td>修改 test1.txt 为 test2.txt 文件的时间戳。</td>
+</tr>
+<tr>
+<td># touch -t 201703031558.28 test.txt</td>
+<td>更改为自定义时间戳</td>
+</tr>
+<tr>
+<td># mv test1 test2</td>
+<td>将目录 test1 改为 test2</td>
+</tr>
+<tr>
+<td># mv /test1 /home/test2</td>
+<td>将 /test1 目录移动到 /home/ 下，并重命名为 test2</td>
+</tr>
+<tr>
+<td># mv test1.txt test2.txt</td>
+<td>将文件 test1.txt 改为 test2.txt</td>
+</tr>
+</tbody>
+</table>
+<p>查看文件内容：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># cat file1</td>
+<td>从第一个字节开始正向查看文件的内容</td>
+</tr>
+<tr>
+<td># head -2 file1</td>
+<td>查看一个文件的前两行</td>
+</tr>
+<tr>
+<td># more file1</td>
+<td>查看一个长文件的内容</td>
+</tr>
+<tr>
+<td># tac file1</td>
+<td>从最后一行开始反向查看一个文件的内容</td>
+</tr>
+<tr>
+<td># tail -3 file1</td>
+<td>查看一个文件的最后三行</td>
+</tr>
+</tbody>
+</table>
+<p>文本处理：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># grep str /home/test.js</td>
+<td>在文件 ‘/home/test.js’ 中查找 “str”(区分大小写)</td>
+</tr>
+<tr>
+<td># grep ^str /home/test.js</td>
+<td>在文件 ‘/home/test.js’ 中查找以 “str” 开始的行</td>
+</tr>
+<tr>
+<td># grep [0-9] /home/test.js</td>
+<td>查找 ‘/home/test.js’ 文件中所有包含数字的行</td>
+</tr>
+<tr>
+<td># grep str -r /home/*</td>
+<td>在目录 ‘/home’ 及其子目录中查找 “str”</td>
+</tr>
+<tr>
+<td># diff file1 file2</td>
+<td>找出两个文件的不同处</td>
+</tr>
+<tr>
+<td># sdiff file1 file2</td>
+<td>以对比的方式显示两个文件的不同</td>
+</tr>
+</tbody>
+</table>
+<p>查找：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># find / -name file1</td>
+<td>从 ‘/‘ 开始进入根文件系统查找文件和目录</td>
+</tr>
+<tr>
+<td># find / -user user1</td>
+<td>查找属于用户 ‘user1’ 的文件和目录</td>
+</tr>
+<tr>
+<td># find /home/user1 -name *.bin</td>
+<td>在目录 ‘/ home/user1’ 中查找以 ‘.bin’ 结尾的文件</td>
+</tr>
+<tr>
+<td># find /usr/bin -type f -atime +100</td>
+<td>查找在过去100天内未被使用过的执行文件</td>
+</tr>
+<tr>
+<td># find /usr/bin -type f -mtime -10</td>
+<td>查找在10天内被创建或者修改过的文件</td>
+</tr>
+<tr>
+<td># locate *.ps</td>
+<td>寻找以 ‘.ps’ 结尾的文件，先运行 ‘updatedb’ 命令</td>
+</tr>
+<tr>
+<td># find -name ‘*.[ch]’ &#124; xargs grep -E ‘expr’</td>
+<td>在当前目录及其子目录所有.c和.h文件中查找 ‘expr’</td>
+</tr>
+<tr>
+<td># find -type f -print0 &#124; xargs -r0 grep -F ‘expr’</td>
+<td>在当前目录及其子目录的常规文件中查找 ‘expr’</td>
+</tr>
+<tr>
+<td># find -maxdepth 1 -type f &#124; xargs grep -F ‘expr’</td>
+<td>在当前目录中查找 ‘expr’</td>
+</tr>
+</tbody>
+</table>
+<p>注意whereis：</p>
+<ul>
+<li>whereis 命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man 说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。</li>
+<li>命令格式：whereis [-bmsu] [BMS 目录名 -f ] 文件名<br>-和 find 相比，whereis 查找的速度非常快，这是因为 linux 系统会将 系统内的所有文件都记录在一个数据库文件中，当使用 whereis 和 locate 时，会从数据库中查找数据，而不是像 find 命令那样，通过遍历硬盘来查找，效率自然会很高。 </li>
+<li>但是该数据库文件并不是实时更新，默认情况下时一星期更新一次，因此，我们在用 whereis 和 locate 查找文件时，有时会找到已经被删除的数据，或者刚刚建立文件，却无法查找到，原因就是因为数据库文件没有被更新。 </li>
+</ul>
+<p>压缩和解压:</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># bzip2 file1</td>
+<td>压缩 file1</td>
+</tr>
+<tr>
+<td># bunzip2 file1.bz2</td>
+<td>解压 file1.bz2</td>
+</tr>
+<tr>
+<td># gzip file1</td>
+<td>压缩 file1</td>
+</tr>
+<tr>
+<td># gzip -9 file1</td>
+<td>最大程度压缩 file1</td>
+</tr>
+<tr>
+<td># gunzip file1.gz</td>
+<td>解压 file1.gz</td>
+</tr>
+<tr>
+<td># tar -cvf archive.tar file1</td>
+<td>把 file1 打包成 archive.tar（-c: 建立压缩档案；-v: 显示所有过程；-f: 使用档案名字，是必须的，是最后一个参数）</td>
+</tr>
+<tr>
+<td># tar -cvf archive.tar file1 dir1</td>
+<td>把 file1，dir1 打包成 archive.tar</td>
+</tr>
+<tr>
+<td># tar -tf archive.tar</td>
+<td>显示一个包中的内容</td>
+</tr>
+<tr>
+<td># tar -xvf archive.tar</td>
+<td>释放一个包</td>
+</tr>
+<tr>
+<td># tar -xvf archive.tar -C /tmp</td>
+<td>把压缩包释放到 /tmp目录下</td>
+</tr>
+<tr>
+<td># zip file1.zip file1</td>
+<td>创建一个zip格式的压缩包</td>
+</tr>
+<tr>
+<td># zip -r file1.zip file1 dir1</td>
+<td>把文件和目录压缩成一个zip格式的压缩包</td>
+</tr>
+<tr>
+<td># unzip file1.zip</td>
+<td>解压一个zip格式的压缩包到当前目录</td>
+</tr>
+<tr>
+<td># unzip test.zip -d /tmp/</td>
+<td>解压一个zip格式的压缩包到 /tmp 目录</td>
+</tr>
+</tbody>
+</table>
+<p>yum工具:</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># yum -y install [package]</td>
+<td>下载并安装一个rpm包</td>
+</tr>
+<tr>
+<td># yum localinstall [package.rpm]</td>
+<td>安装一个rpm包，使用你自己的软件仓库解决所有依赖关系</td>
+</tr>
+<tr>
+<td># yum -y update</td>
+<td>更新当前系统中安装的所有rpm包</td>
+</tr>
+<tr>
+<td># yum update [package]</td>
+<td>更新一个rpm包</td>
+</tr>
+<tr>
+<td># yum remove [package]</td>
+<td>删除一个rpm包</td>
+</tr>
+<tr>
+<td># yum list</td>
+<td>列出当前系统中安装的所有包</td>
+</tr>
+<tr>
+<td># yum search [package]</td>
+<td>在rpm仓库中搜寻软件包</td>
+</tr>
+<tr>
+<td># yum clean [package]</td>
+<td>清除缓存目录（/var/cache/yum）下的软件包</td>
+</tr>
+<tr>
+<td># yum clean headers</td>
+<td>删除所有头文件</td>
+</tr>
+<tr>
+<td># yum clean all</td>
+<td>删除所有缓存的包和头文件</td>
+</tr>
+</tbody>
+</table>
+<p>网络:</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># ifconfig eth0</td>
+<td>显示一个以太网卡的配置</td>
+</tr>
+<tr>
+<td># ifconfig eth0 192.168.1.1 netmask 255.255.255.0</td>
+<td>配置网卡的IP地址</td>
+</tr>
+<tr>
+<td># ifdown eth0</td>
+<td>禁用 ‘eth0’ 网络设备</td>
+</tr>
+<tr>
+<td># ifup eth0</td>
+<td>启用 ‘eth0’ 网络设备</td>
+</tr>
+<tr>
+<td># iwconfig eth1</td>
+<td>显示一个无线网卡的配置</td>
+</tr>
+<tr>
+<td># iwlist scan</td>
+<td>显示无线网络</td>
+</tr>
+<tr>
+<td># ip addr show</td>
+<td>显示网卡的IP地址</td>
+</tr>
+</tbody>
+</table>
+<p>其他:</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># su -</td>
+<td>切换到root权限（与su有区别）</td>
+</tr>
+<tr>
+<td># shutdown -h now</td>
+<td>关机</td>
+</tr>
+<tr>
+<td># shutdown -r now</td>
+<td>重启</td>
+</tr>
+<tr>
+<td># top</td>
+<td>罗列使用 CPU 资源最多的 linux 任务 （输入 q 退出）</td>
+</tr>
+<tr>
+<td># pstree</td>
+<td>以树状图显示程序</td>
+</tr>
+<tr>
+<td># man ping</td>
+<td>查看参考手册（例如 ping 命令）</td>
+</tr>
+<tr>
+<td># passwd</td>
+<td>修改密码</td>
+</tr>
+<tr>
+<td># df -h</td>
+<td>显示磁盘的使用情况</td>
+</tr>
+<tr>
+<td># cal -3</td>
+<td>显示前一个月，当前月以及下一个月的月历</td>
+</tr>
+<tr>
+<td># cal 10 1988</td>
+<td>显示指定月，年的月历</td>
+</tr>
+<tr>
+<td># date –date ‘1970-01-01 UTC 1427888888 seconds’</td>
+<td>把一相对于1970-01-01 00:00的秒数转换成时间</td>
+</tr>
+<tr>
+<td># ps -ef &#124; grep nginx</td>
+<td>查看 nginx 安装路径</td>
+</tr>
+</tbody>
+</table>
+<p>操作：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl + u</td>
+<td>删除光标之前到行首的字符</td>
+</tr>
+<tr>
+<td>Ctrl + k</td>
+<td>删除光标之前到行尾的字符</td>
+</tr>
+<tr>
+<td>Ctrl + c</td>
+<td>取消当前行输入的命令，相当于 Ctrl + Break</td>
+</tr>
+<tr>
+<td>Ctrl + a</td>
+<td>光标移动到行首（ahead of line），相当于通常的 Home 键</td>
+</tr>
+<tr>
+<td>Ctrl + e</td>
+<td>光标移动到行尾（end of line）</td>
+</tr>
+<tr>
+<td>Ctrl + f</td>
+<td>光标向前（forward）移动一个字符位置</td>
+</tr>
+<tr>
+<td>Ctrl + b</td>
+<td>光标往回（backward）移动一个字符位置</td>
+</tr>
+<tr>
+<td>Ctrl + l</td>
+<td>清屏，相当于执行clear命令</td>
+</tr>
+<tr>
+<td>Ctrl + r</td>
+<td>显示:号提示，根据用户输入查找相关历史命令（reverse-i-search）</td>
+</tr>
+<tr>
+<td>Ctrl + w</td>
+<td>删除从光标位置前到当前所处单词（word）的开头</td>
+</tr>
+<tr>
+<td>Ctrl + t</td>
+<td>交换光标位置前的两个字符</td>
+</tr>
+<tr>
+<td>Ctrl + y</td>
+<td>粘贴最后一次被删除的单词</td>
+</tr>
+<tr>
+<td>Ctrl + Alt + d</td>
+<td>显示桌面</td>
+</tr>
+<tr>
+<td>Alt + b</td>
+<td>光标往回（backward）移动到前一个单词</td>
+</tr>
+<tr>
+<td>Alt + d</td>
+<td>删除从光标位置到当前所处单词的末尾</td>
+</tr>
+<tr>
+<td>Alt + F2</td>
+<td>运行</td>
+</tr>
+<tr>
+<td>Alt + F4</td>
+<td>关闭当前窗口</td>
+</tr>
+<tr>
+<td>Alt + F9</td>
+<td>最小化当前窗口</td>
+</tr>
+<tr>
+<td>Alt + F10</td>
+<td>最大化当前窗口</td>
+</tr>
+<tr>
+<td>Alt + Tab</td>
+<td>切换窗口</td>
+</tr>
+<tr>
+<td>[鼠标中间键]</td>
+<td>粘贴突出显示的文本。使用鼠标左键来选择文本。把光标指向想粘贴文本的地方。点击鼠标中间键来粘贴。</td>
+</tr>
+<tr>
+<td>[Tab]</td>
+<td>命令行自动补全。</td>
+</tr>
+</tbody>
+</table>
+<p>systemctl 命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># systemctl enable *.service</td>
+<td>开机运行服务</td>
+</tr>
+<tr>
+<td># systemctl disable *.service</td>
+<td>取消开机运行</td>
+</tr>
+<tr>
+<td># systemctl start *.service</td>
+<td>启动服务</td>
+</tr>
+<tr>
+<td># systemctl stop *.service</td>
+<td>停止服务</td>
+</tr>
+<tr>
+<td># systemctl restart *.service</td>
+<td>重启服务</td>
+</tr>
+<tr>
+<td># systemctl reload *.service</td>
+<td>重新加载服务配置文件</td>
+</tr>
+<tr>
+<td># systemctl status *.service</td>
+<td>查询服务运行状态</td>
+</tr>
+<tr>
+<td># systemctl –failed</td>
+<td>显示启动失败的服务</td>
+</tr>
+</tbody>
+</table>
+<p>防火墙命令:</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td># firewall-cmd –version</td>
+<td>查看版本</td>
+</tr>
+<tr>
+<td># firewall-cmd –help</td>
+<td>查看帮助</td>
+</tr>
+<tr>
+<td># firewall-cmd –state</td>
+<td>显示状态</td>
+</tr>
+<tr>
+<td># firewall-cmd –list-port</td>
+<td>查看端口</td>
+</tr>
+<tr>
+<td># firewall-cmd –add-port=80/tcp –permanent</td>
+<td>开放端口</td>
+</tr>
+<tr>
+<td># firewall-cmd –add-port=20000-20010/tcp –permanent</td>
+<td>开放端口(参数 –permanent，表示永久生效)</td>
+</tr>
+<tr>
+<td># firewall-cmd –remove-port=80/tcp –permanent</td>
+<td>禁用端口</td>
+</tr>
+<tr>
+<td># firewall-cmd –remove-port=20000-20010/tcp –permanent</td>
+<td>禁用端口(参数 –permanent，表示永久生效)</td>
+</tr>
+<tr>
+<td># firewall-cmd –reload</td>
+<td>重新加载防火墙规则</td>
+</tr>
+<tr>
+<td># firewall-cmd –add-service=ftp –permanent</td>
+<td>打开FTP服务</td>
+</tr>
+<tr>
+<td># firewall-cmd –remove-service=ftp –permanent</td>
+<td>关闭FTP服务(参数 –permanent，表示永久生效)</td>
+</tr>
+</tbody>
+</table>
+<p>vi 编辑命令：</p>
+<ul>
+<li># vi /home/test.txt  用 vi 打开一个 test.txt 文件</li>
+<li>按 i 键后  进入insert模式（进入 insert 模式后才能进行修改）</li>
+<li># 修改完成后，按 esc 键进入 command 模式，然后 :wq 保存文件并退出 vi（注意先冒号）</li>
+<li>保存命令（按 ESC 键 跳到命令模式，然后：）<ul>
+<li>:w  ———– 保存文件但不退出 vi</li>
+<li>:w file ——— 将修改另外保存到 file 中，不退出vi</li>
+<li>:w! ——– 强制保存，不推出vi</li>
+<li>:wq ——– 保存文件并退出vi</li>
+<li>:wq! ——- 强制保存文件，并退出vi</li>
+<li>q: ——— 不保存文件，退出vi</li>
+<li>:q! ———- 不保存文件，强制退出vi</li>
+<li>:e! ———- 放弃所有修改，从上次保存文件开始再编辑</li>
+</ul>
+</li>
+</ul>
+<p>vi具体可参考： <a href="http://www.mamicode.com/info-detail-2037716.html" target="_blank" rel="noopener">http://www.mamicode.com/info-detail-2037716.html</a></p>
+<h3 id="Centos-、Ubuntu、Debian-三个-Linux-介绍"><a href="#Centos-、Ubuntu、Debian-三个-Linux-介绍" class="headerlink" title="Centos 、Ubuntu、Debian 三个 Linux 介绍"></a>Centos 、Ubuntu、Debian 三个 Linux 介绍</h3><p>Centos 、Ubuntu、Debian 三个Linux都是非常优秀的系统，开源的系统，也分付费的商业版和免费版，下面简单比较这三种系统。</p>
+<ul>
+<li>Centos 系统</li>
+</ul>
+<p>非常多的商业公司部署在生产环境上的服务器都是使用 CentOS 系统，Centos 是从 Redhat 源代码编译重新发布版，Centos 去除很多与服务器功能无关的应用，系统简单但非常稳定，命令行操作可以方便管理系统和应用，并且有帮助文档和社区的支持。</p>
+<ul>
+<li>Ubuntu 系统</li>
+</ul>
+<p>Ubuntu 系统有着靓丽的用户界面，完善的包管理系统，强大的软件源支持，丰富的技术社区，并且 Ubuntu 对计算机硬件的支持优于 centos 和 Debian ，兼容性强，Ubuntu 应用非常多，但是对于服务器操作系统来说，并不需要太多的应用程序，需要的是稳定，操作方便，维护简单的系统。如果你需要在服务器端使用图形界面，Ubuntu是一个不错的选择，你需要注意的是，图形界面占用的内存非常大，而内存越大的 vps 价格也越高。</p>
+<ul>
+<li>Debian 系统</li>
+</ul>
+<p>Debian 系统也非常适合做服务器操作系统，与 Ubuntu 比较，它没有太多的花哨，稳定压倒一切，对于服务器操作系统来说是一条不变的真理，Debian 这个Linux 系统，底层非常稳定，内核和内存的占用都非常小，在小内存的 vps 就可以顺畅运行 Debian ,比如 128M 的内存，但 Debian 的帮助文档和技术资料比较少，对于小内存，首选 Debian，对于非常熟悉 Linux 系统的 vps 高手，首选Debian。</p>
+<h3 id="centos-目录介绍"><a href="#centos-目录介绍" class="headerlink" title="centos 目录介绍"></a>centos 目录介绍</h3><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/bin</td>
+<td>存放二进制可执行文件(ls,cat,mkdir等)，常用命令一般都在这里。</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>存放系统管理和配置文件</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>存放所有用户文件的根目录，是用户主目录的基点，比如用户 user 的主目录就是 /home/user，可以用 ~user 表示</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>用于存放系统应用程序，比较重要的目录<br>- /usr/local 本地系统管理员软件安装目录（安装系统级的应用）。这是最庞大的目录，要用到的应用程序和文件几乎都在这个目录。<br>- /usr/x11r6 存放 x window 的目录<br>- /usr/bin 众多的应用程序<br>- /usr/sbin 超级用户的一些管理程序<br>- /usr/doc linux 文档<br>- /usr/include linux下开发和编译应用程序所需要的头文件<br>- /usr/lib 常用的动态链接库和软件包的配置文件<br>- /usr/man 帮助文档<br>- /usr/src 源代码，linux内核的源代码就放在/usr/src/linux里<br>- /usr/local/bin 本地增加的命令<br>- /usr/local/lib 本地增加的库</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>额外安装的可选应用程序包所放置的位置。一般情况下，我们可以把tomcat等都安装到这里。</td>
+</tr>
+<tr>
+<td>/proc</td>
+<td>虚拟文件系统目录，是系统内存的映射。可直接访问这个目录来获取系统信息。</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>超级用户（系统管理员）的主目录（特权阶级^o^）</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>存放二进制可执行文件，只有root才能访问。这里存放的是系统管理员使用的系统级别的管理命令和程序。如ifconfig等。</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>用于存放设备文件。</td>
+</tr>
+<tr>
+<td>/mnt</td>
+<td>系统管理员安装临时文件系统的安装点，系统提供这个目录是让用户临时挂载其他的文件系统。</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>存放用于系统引导时使用的各种文件</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>存放跟文件系统中的程序运行所需要的共享库及内核模块。共享库又叫动态链接共享库，作用类似windows里的.dll文件，存放了根文件系统程序运行所需的共享文件。</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>用于存放各种临时文件，是公用的临时文件存储点。</td>
+</tr>
+<tr>
+<td>/var</td>
+<td>用于存放运行时需要改变数据的文件，也是某些大文件的溢出区，比方说各种服务的日志文件（系统启动日志等。）等。</td>
+</tr>
+<tr>
+<td>/lost+found</td>
+<td>这个目录平时是空的，系统非正常关机而留下“无家可归”的文件（windows下叫什么.chk）就在这里</td>
+</tr>
+</tbody>
+</table>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://juejin.im/post/5c9319c2e51d450d597ea3ff" target="_blank" rel="noopener">https://juejin.im/post/5c9319c2e51d450d597ea3ff</a></li>
+<li><a href="https://www.centos.org/" target="_blank" rel="noopener">https://www.centos.org/</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"><i class="fa fa-tag"></i> node.js</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/Linus/" rel="tag"><i class="fa fa-tag"></i> Linus</a>
+          
+            <a href="/tags/Centos/" rel="tag"><i class="fa fa-tag"></i> Centos</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/29/NODE_MONGO/" rel="next" title="node-mongodb上手指南">
+                <i class="fa fa-chevron-left"></i> node-mongodb上手指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/13/git/" rel="prev" title="git 介绍及常用命令">
+                git 介绍及常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me.jpg"
+                alt="Leo Wei" />
+            
+              <p class="site-author-name" itemprop="name">Leo Wei</p>
+              <p class="site-description motion-element" itemprop="description">study and life</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/weiyuan0609" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:weiyuan930609@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/er-ge-93-76/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://leetcode.com/weiyuan0609" target="_blank" title="LeetCode">
+                      
+                        <i class="fa fa-fw fa-meh-o"></i>LeetCode</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-gavel"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com" title="张鑫旭" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com" title="阮一峰" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaoxuefeng.com" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jspang.com" title="技术胖" target="_blank">技术胖</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.mozilla.org/en-US/" title="MDN" target="_blank">MDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com" title="ES6" target="_blank">ES6</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://webglfundamentals.org/webgl/lessons/zh_cn/" title="WEBGL" target="_blank">WEBGL</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nodejs.org/dist/latest-v10.x/docs/api/" title="NODEJS" target="_blank">NODEJS</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.imooc.com" title="慕课网" target="_blank">慕课网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://frontendmasters.com/books/front-end-handbook/2019/" title="2019前端发展" target="_blank">2019前端发展</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=485232943&auto=0&height=66"></iframe>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Centos-、Ubuntu、Debian-三个-Linux-介绍"><span class="nav-number">1.</span> <span class="nav-text">Centos 、Ubuntu、Debian 三个 Linux 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#centos-目录介绍"><span class="nav-number">2.</span> <span class="nav-text">centos 目录介绍</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Wei</span>
+
+  
+</div>
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
