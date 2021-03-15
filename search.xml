@@ -100,8 +100,8 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>node.js</tag>
         <tag>js</tag>
+        <tag>node.js</tag>
         <tag>promise</tag>
         <tag>es6</tag>
       </tags>
@@ -139,8 +139,8 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>TypeScript</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -249,8 +249,8 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>node.js</tag>
         <tag>js</tag>
+        <tag>node.js</tag>
         <tag>Puppeteer</tag>
       </tags>
   </entry>
@@ -298,8 +298,8 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>React-Native</tag>
+        <tag>js</tag>
         <tag>RN</tag>
       </tags>
   </entry>
@@ -323,9 +323,9 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>js</tag>
-        <tag>TypeScript</tag>
         <tag>React-Native</tag>
+        <tag>TypeScript</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -375,8 +375,8 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>node.js</tag>
         <tag>js</tag>
+        <tag>node.js</tag>
         <tag>pm2</tag>
       </tags>
   </entry>
@@ -388,8 +388,8 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>node.js</tag>
         <tag>js</tag>
+        <tag>node.js</tag>
         <tag>event emitter</tag>
       </tags>
   </entry>
@@ -413,8 +413,8 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>node.js</tag>
         <tag>js</tag>
+        <tag>node.js</tag>
         <tag>Linus</tag>
         <tag>Centos</tag>
       </tags>
@@ -427,10 +427,10 @@
         <category>杂记</category>
       </categories>
       <tags>
+        <tag>js</tag>
         <tag>node.js</tag>
         <tag>mongoose</tag>
         <tag>mongodb</tag>
-        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -452,8 +452,8 @@
         <category>杂记</category>
       </categories>
       <tags>
-        <tag>node.js</tag>
         <tag>js</tag>
+        <tag>node.js</tag>
       </tags>
   </entry>
   <entry>
