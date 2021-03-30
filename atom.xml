@@ -39,6 +39,30 @@
   </entry>
   
   <entry>
+    <title>h5优化脑图</title>
+    <link href="http://yoursite.com/2021/02/11/h5%E4%BC%98%E5%8C%96%E8%84%91%E5%9B%BE/"/>
+    <id>http://yoursite.com/2021/02/11/h5优化脑图/</id>
+    <published>2021-02-11T15:07:33.000Z</published>
+    <updated>2021-03-30T02:50:08.539Z</updated>
+    
+    <content type="html"><![CDATA[<p>脑图如下：</p><a id="more"></a><p><img src="/images/h5.png" alt="img1"><br><img src="/images/html.jpg" alt="img2"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;脑图如下：&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="杂记" scheme="http://yoursite.com/categories/%E6%9D%82%E8%AE%B0/"/>
+    
+    
+      <category term="性能优化" scheme="http://yoursite.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+      <category term="h5" scheme="http://yoursite.com/tags/h5/"/>
+    
+  </entry>
+  
+  <entry>
     <title>迭代复盘方式</title>
     <link href="http://yoursite.com/2021/01/06/%E8%BF%AD%E4%BB%A3%E5%A4%8D%E7%9B%98/"/>
     <id>http://yoursite.com/2021/01/06/迭代复盘/</id>
@@ -508,35 +532,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;1-标签&quot;&gt;&lt;a href=&quot;#1-标签&quot; class=&quot;headerlink&quot; title=&quot;1. 标签&quot;&gt;&lt;/a&gt;1. 标签&lt;/h2&gt;
-    
-    </summary>
-    
-      <category term="杂记" scheme="http://yoursite.com/categories/%E6%9D%82%E8%AE%B0/"/>
-    
-    
-      <category term="js" scheme="http://yoursite.com/tags/js/"/>
-    
-      <category term="svg" scheme="http://yoursite.com/tags/svg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>svg-概述</title>
-    <link href="http://yoursite.com/2019/04/18/svg-%E6%A6%82%E8%BF%B0/"/>
-    <id>http://yoursite.com/2019/04/18/svg-概述/</id>
-    <published>2019-04-18T05:26:00.000Z</published>
-    <updated>2019-11-25T03:49:30.475Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><ul><li>可缩放矢量图形（Scalable Vector Graphics，SVG），是一种用于描述基于二维的矢量图形的，基于 XML 的标记语言。本质上，SVG 相对于图像，就好比 HTML 相对于文本;</li><li>文件后缀是 .svg；</li><li>namespace 是 <a href="http://www.w3.org/2000/svg" target="_blank" rel="noopener">http://www.w3.org/2000/svg</a>；</li></ul><h2 id="2-优点"><a href="#2-优点" class="headerlink" title="2. 优点"></a>2. 优点</h2><a id="more"></a><ul><li>可被非常多的工具读取和修改；</li><li>相对 jpg, png 尺寸更小，切可压缩性更强；</li><li>可伸缩；</li><li>可在图像质量不降低的情况下被放大；</li><li>文本是可以搜索的；</li></ul><h2 id="3-兼容性"><a href="#3-兼容性" class="headerlink" title="3. 兼容性"></a>3. 兼容性</h2><p><img src="/images/svg-1.png" alt="svg-1"></p><h2 id="4-坐标系统"><a href="#4-坐标系统" class="headerlink" title="4. 坐标系统"></a>4. 坐标系统</h2><p>对于所有元素，SVG使用的坐标系统或者说网格系统，和Canvas用的差不多（所有计算机绘图都差不多）。这种坐标系统是：</p><p>以页面的左上角为(0,0)坐标点，坐标以像素为单位，x 轴正方向是向右，y 轴正方向是向下。注意，这和你小时候所教的绘图方式是相反的。但是在HTML文档中，元素都是用这种方式定位的。</p><p><img src="/images/svg-2.png" alt="svg-2"></p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">"0"</span> <span class="attr">y</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span> /&gt;</span></span><br></pre></td></tr></table></figure><p>SVG中的四个坐标系包括用户坐标系、自身坐标系、前驱坐标系和参考坐标系。其中，用户坐标系和自身坐标系是客观的坐标系，而前驱坐标系和参考坐标系是相对的坐标系</p><ul><li>用户坐标系：即世界坐标系，svg 坐标系本身；</li><li>自身坐标系：图形或图形分组的坐标系；</li><li>前驱坐标系：父容器的坐标系；svg 的前驱坐标系是世界坐标系；</li><li>参考坐标系：参考其他坐标系来判断自身的情况时使用；</li></ul><h2 id="5-基础概念"><a href="#5-基础概念" class="headerlink" title="5. 基础概念"></a>5. 基础概念</h2><ul><li>视窗：在 svg 标签上设置 width、 height 来控制视窗(viewport)；</li><li>世界： svg 代码定义的世界；</li><li>视野：世界是无穷大的，视野是观察世界的一个矩形区域；在 svg 中，提供了 <a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/viewBox" target="_blank" rel="noopener">viewBox</a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/preserveAspectRatio" target="_blank" rel="noopener">preserveAspectRatio</a> 属性来控制视野；</li></ul><h2 id="6-使用"><a href="#6-使用" class="headerlink" title="6. 使用"></a>6. 使用</h2><ul><li>img、iframe、object等标签插入网页；</li><li>css 使用；</li><li>直接插入网页；</li><li>网页直接打开；</li></ul><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=<span class="string">"demo.svg"</span> /&gt;</span><br><span class="line">&lt;iframe src=<span class="string">"demo.svg"</span> /&gt;</span><br><span class="line">&lt;object src=<span class="string">"demo.svg"</span> type=<span class="string">"image/svg+xml"</span> /&gt;</span><br><span class="line">.demo &#123;</span><br><span class="line">  background: url(demo.svg);</span><br><span class="line">&#125;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;<span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line">    &lt;body&gt;</span><br><span class="line">      &lt;svg</span><br><span class="line">        xmlns=<span class="string">"http://www.w3.org/2000/svg"</span></span><br><span class="line">        viewBox=<span class="string">"0 0 80 60"</span></span><br><span class="line">        preserveAspectRatio=<span class="string">"xMidYMid meet"</span></span><br><span class="line">      &gt;</span><br><span class="line">        &lt;circle cx=<span class="string">"40"</span> cy=<span class="string">"30"</span> r=<span class="string">"5"</span> /&gt;</span><br><span class="line">      &lt;svg&gt;</span><br><span class="line">    &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure><h2 id="7-实际应用"><a href="#7-实际应用" class="headerlink" title="7. 实际应用"></a>7. 实际应用</h2><ul><li>iconfont</li><li>highCharts</li><li>D3.js</li></ul><p>学习链接：</p><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/SVG</a></li><li><a href="https://www.cnblogs.com/xiaohuochai/p/7482765.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaohuochai/p/7482765.html</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-介绍&quot;&gt;&lt;a href=&quot;#1-介绍&quot; class=&quot;headerlink&quot; title=&quot;1. 介绍&quot;&gt;&lt;/a&gt;1. 介绍&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;可缩放矢量图形（Scalable Vector Graphics，SVG），是一种用于描述基于二维的矢量图形的，基于 XML 的标记语言。本质上，SVG 相对于图像，就好比 HTML 相对于文本;&lt;/li&gt;
-&lt;li&gt;文件后缀是 .svg；&lt;/li&gt;
-&lt;li&gt;namespace 是 &lt;a href=&quot;http://www.w3.org/2000/svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.w3.org/2000/svg&lt;/a&gt;；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;2-优点&quot;&gt;&lt;a href=&quot;#2-优点&quot; class=&quot;headerlink&quot; title=&quot;2. 优点&quot;&gt;&lt;/a&gt;2. 优点&lt;/h2&gt;
     
     </summary>
     
